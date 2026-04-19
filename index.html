@@ -11,30 +11,33 @@
         .sidebar-item { transition: all 0.3s; cursor: pointer; }
         .sidebar-item:hover { background-color: #1e40af; }
         .active-menu { background-color: #1e40af; border-right: 4px solid #fbbf24; }
+        
         .submenu { display: none; background-color: #172554; }
         .submenu.show { display: block !important; }
         .arrow-icon { transition: transform 0.3s ease; }
         .rotate-180 { transform: rotate(180deg); }
+        
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+
         .content-section { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .course-card:hover { transform: translateY(-5px); transition: all 0.3s; }
     </style>
 </head>
 <body class="bg-gray-100 flex h-screen overflow-hidden">
 
+    <!-- SIDEBAR -->
     <aside class="w-72 bg-blue-900 text-white flex flex-col shadow-xl z-50">
         <div class="p-6 flex items-center gap-3 border-b border-blue-800">
             <a href="trangchu.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <img src="logo.png" class="w-12 h-12 rounded-full bg-white p-1">
                 <div>
                     <div class="font-black text-lg leading-tight text-white">TOÁN</div>
-                    <div class="text-[10px] text-blue-200 uppercase tracking-widest">Thầy Thành Cổng Admin</div>
+                    <div class="text-xs text-blue-200 uppercase tracking-widest text-[10px]">Thầy Thành Cổng Admin</div>
                 </div>
             </a>
         </div>
@@ -98,6 +101,7 @@
         </div>
     </aside>
 
+    <!-- MAIN -->
     <main class="flex-1 flex flex-col overflow-hidden">
         <header class="bg-white shadow-sm p-4 px-8 flex justify-between items-center border-b">
             <h2 id="page-title" class="text-xl font-black text-blue-900 uppercase tracking-tight">Trang Welcome</h2>
@@ -108,7 +112,8 @@
         </header>
 
         <div id="main-content" class="p-8 overflow-y-auto bg-gray-50 flex-1">
-            
+
+            <!-- WELCOME -->
             <div id="content-welcome" class="content-section">
                 <div class="bg-white p-12 rounded-[40px] shadow-sm text-center border border-gray-100">
                     <h3 class="text-3xl font-black text-blue-900">Chào mừng Thầy Thành! 👋</h3>
@@ -130,66 +135,77 @@
                 </div>
             </div>
 
+            <!-- DANH SÁCH NGƯỜI DÙNG -->
             <div id="content-user-list" class="content-section hidden">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold text-blue-900 uppercase tracking-tighter">Danh sách thành viên</h3>
-                    <button onclick="fetchUsers()" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-blue-700 shadow-md flex items-center gap-2">
+                    <h3 class="text-2xl font-bold text-blue-900 uppercase tracking-tighter">Danh sách người dùng</h3>
+                    <button onclick="fetchUsers()" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-blue-700 shadow-md flex items-center gap-2 transition-all">
                         <i class="fas fa-sync-alt"></i> Làm mới
                     </button>
                 </div>
                 <div class="bg-white rounded-[30px] shadow-sm overflow-hidden border border-gray-100">
-                    <table class="w-full text-left">
-                        <thead class="bg-gray-50 text-blue-900 border-b">
-                            <tr>
-                                <th class="p-5 text-xs font-black uppercase tracking-wider">Họ và tên</th>
-                                <th class="p-5 text-xs font-black uppercase tracking-wider">Liên hệ</th>
-                                <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Vai trò</th>
-                                <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Trạng thái</th>
-                                <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-table-body" class="divide-y divide-gray-50"></tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-blue-900 border-b">
+                                <tr>
+                                    <th class="p-5 text-xs font-black uppercase tracking-wider">Họ và tên</th>
+                                    <th class="p-5 text-xs font-black uppercase tracking-wider">Liên hệ</th>
+                                    <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Vai trò</th>
+                                    <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Trạng thái</th>
+                                    <th class="p-5 text-xs font-black uppercase tracking-wider text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-table-body" class="divide-y divide-gray-50">
+                                <tr><td colspan="5" class="p-10 text-center text-gray-400 italic">Đang tải dữ liệu...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <!-- THÊM NGƯỜI DÙNG -->
             <div id="content-add-user" class="content-section hidden">
-                <h3 class="text-2xl font-bold text-blue-900 mb-6 uppercase">Thêm thành viên mới</h3>
+                <h3 class="text-2xl font-bold text-blue-900 mb-6 uppercase">Thêm học sinh mới</h3>
                 <div class="bg-white p-8 rounded-[30px] shadow-sm max-w-2xl border border-gray-100">
                     <form id="form-add-new-user" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="md:col-span-2">
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Họ và tên</label>
-                            <input type="text" id="add-fullname" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
+                            <input type="text" id="add-fullname" placeholder="Nguyễn Văn A" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
                         </div>
                         <div>
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Email (Tài khoản)</label>
-                            <input type="email" id="add-email" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
+                            <input type="email" id="add-email" placeholder="email@gmail.com" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
                         </div>
                         <div>
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Mật khẩu</label>
-                            <input type="password" id="add-password" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
+                            <input type="password" id="add-password" placeholder="******" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
                         </div>
                         <div>
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Số điện thoại</label>
-                            <input type="text" id="add-sdt" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1">
+                            <input type="text" id="add-sdt" placeholder="09xxx..." class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1">
                         </div>
                         <div>
-                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Vai trò</label>
+                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Link Facebook</label>
+                            <input type="text" id="add-fb" placeholder="facebook.com/..." class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Phân quyền</label>
                             <select id="add-role" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1">
-                                <option value="student">Học sinh</option>
-                                <option value="teacher">Trợ giảng</option>
-                                <option value="admin">Admin</option>
+                                <option value="student">Học sinh (Student)</option>
+                                <option value="teacher">Trợ giảng (Teacher)</option>
+                                <option value="admin">Quản trị viên (Admin)</option>
                             </select>
                         </div>
                         <div class="md:col-span-2 mt-4">
-                            <button type="submit" id="btn-submit-user" class="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg flex items-center justify-center gap-2 hover:bg-blue-800 transition-all">
-                                <i class="fas fa-save"></i> LƯU THÀNH VIÊN
+                            <button type="submit" id="btn-submit-user" class="w-full bg-blue-900 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 flex items-center justify-center gap-2 hover:bg-blue-800 transition-all">
+                                <i class="fas fa-user-plus"></i> LƯU THÀNH VIÊN
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
 
+            <!-- GÁN HỌC SINH -->
             <div id="content-assign-student" class="content-section hidden">
                 <h3 class="text-2xl font-bold text-blue-900 mb-6 uppercase tracking-tighter">Gán học sinh vào khóa học</h3>
                 <div class="bg-white p-8 rounded-[30px] shadow-sm max-w-2xl border border-gray-100">
@@ -197,17 +213,17 @@
                         <div>
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Chọn học sinh</label>
                             <select id="assign-user-id" class="w-full border p-4 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1 font-bold" required>
-                                <option value="">Đang tải...</option>
+                                <option value="">Đang tải học sinh...</option>
                             </select>
                         </div>
                         <div>
                             <label class="text-xs font-bold text-gray-400 uppercase ml-2">Chọn khóa học</label>
                             <select id="assign-course-id" class="w-full border p-4 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1 font-bold" required>
-                                <option value="">Đang tải...</option>
+                                <option value="">Đang tải khóa học...</option>
                             </select>
                         </div>
                         <div class="pt-4">
-                            <button type="submit" id="btn-submit-assign" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-bold shadow-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition-all">
+                            <button type="submit" id="btn-submit-assign" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-orange-100 flex items-center justify-center gap-2 hover:bg-orange-600 transition-all">
                                 <i class="fas fa-link"></i> XÁC NHẬN GÁN KHÓA HỌC
                             </button>
                         </div>
@@ -215,60 +231,146 @@
                 </div>
             </div>
 
+            <!-- DANH SÁCH KHÓA HỌC -->
             <div id="content-course-list" class="content-section hidden">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-bold text-blue-900 uppercase tracking-tighter">Hệ thống khóa học</h3>
-                    <button onclick="fetchCourses()" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-blue-700">
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-900 uppercase tracking-tighter">Hệ thống khóa học hiện có</h3>
+                        <p class="text-gray-500 text-sm">Quản lý nội dung, chuyên đề và học viên theo từng khóa</p>
+                    </div>
+                    <button onclick="fetchCourses()" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-blue-700 shadow-md flex items-center gap-2 transition-all">
                         <i class="fas fa-sync-alt"></i> Làm mới
                     </button>
                 </div>
-                <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="col-span-full p-10 text-center text-gray-400 italic">Đang tải danh sách khóa học...</div>
+                </div>
             </div>
 
+            <!-- QUẢN LÝ CHUYÊN ĐỀ & BÀI HỌC -->
+            <div id="content-topic-management" class="content-section hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <button onclick="showContent('course-list')" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition">
+                        <i class="fas fa-arrow-left w-5 text-center"></i>
+                    </button>
+                    <div>
+                        <h3 id="current-course-name" class="text-2xl font-bold text-blue-900 uppercase">Tên khóa học</h3>
+                        <p class="text-gray-500 text-sm">Quản lý chuyên đề và bài giảng</p>
+                    </div>
+                </div>
+                <div id="topic-container" class="space-y-4"></div>
+            </div>
+
+            <!-- THÊM KHÓA HỌC -->
             <div id="content-add-course" class="content-section hidden">
-                <h3 class="text-2xl font-bold text-blue-900 mb-6 uppercase">Tạo khóa học mới</h3>
-                <div class="bg-white p-8 rounded-[30px] shadow-sm max-w-2xl border border-gray-100">
-                    <div class="space-y-5">
+                <div class="max-w-3xl mx-auto">
+                    <div class="flex items-center justify-between mb-8">
                         <div>
-                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Tên khóa học</label>
-                            <input type="text" id="course_name" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1" required>
+                            <h2 class="text-2xl font-bold text-gray-800">Thiết lập Khóa học mới</h2>
+                            <p class="text-gray-500 text-sm">Khởi tạo nền tảng cho các chuyên đề và bài giảng</p>
                         </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Mô tả</label>
-                            <textarea id="course_description" rows="3" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1"></textarea>
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-400 uppercase ml-2">Link Ảnh bìa</label>
-                            <input type="text" id="course_thumbnail" oninput="previewThumb()" class="w-full border p-3 rounded-2xl outline-none focus:border-blue-500 bg-gray-50 mt-1">
-                            <div id="thumb-preview" class="mt-2 hidden">
-                                <img src="" class="h-24 rounded-lg border">
+                        <i class="fas fa-graduation-cap text-4xl text-blue-100"></i>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tên khóa học</label>
+                                <input type="text" id="course_name" placeholder="Ví dụ: Toán 12 - Luyện thi THPT Quốc gia" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Mô tả khóa học</label>
+                                <textarea id="course_description" rows="4" placeholder="Mô tả mục tiêu, đối tượng hoặc lộ trình khóa học..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Ảnh đại diện (Thumbnail URL)</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="course_thumbnail" placeholder="Dán link ảnh từ Canva hoặc Google Drive..." class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all">
+                                    <button onclick="previewThumb()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl transition">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div id="thumb-preview" class="mt-3 hidden">
+                                    <img src="" alt="Preview" class="h-32 rounded-lg border shadow-sm">
+                                </div>
+                            </div>
+                            <div class="pt-4">
+                                <button onclick="saveCourse()" id="btn-save-course" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                                    <i class="fas fa-rocket"></i> Xác nhận khởi tạo khóa học
+                                </button>
                             </div>
                         </div>
-                        <button onclick="saveCourse()" id="btn-save-course" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-700">
-                            KHỞI TẠO KHÓA HỌC
-                        </button>
                     </div>
                 </div>
             </div>
 
+            <!-- THI ONLINE -->
             <div id="content-exam" class="content-section hidden">
                 <div class="text-center p-20">
-                    <i class="fas fa-tools text-gray-300 mb-4 text-5xl"></i>
-                    <h3 class="text-xl font-bold text-gray-500">Tính năng Thi Online đang được xây dựng...</h3>
+                    <i class="fas fa-tools text-5xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-500">Tính năng Thi Online đang được cập nhật...</h3>
                 </div>
             </div>
 
         </div>
     </main>
 
+    <!-- MODAL THÊM BÀI HỌC -->
+    <div id="modal-add-lesson" class="fixed inset-0 bg-black bg-opacity-50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-[30px] p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="text-xl font-bold text-blue-900">Thêm bài học mới</h4>
+                <button onclick="closeLessonModal()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="space-y-4">
+                <input type="hidden" id="target-topic-id">
+                <input type="hidden" id="target-course-id">
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase ml-2">Tên bài học</label>
+                    <input type="text" id="lesson-title" placeholder="Ví dụ: Bài 1: Đại số tổ hợp" class="w-full border p-3 rounded-2xl bg-gray-50 mt-1 outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase ml-2">Link Video / Tài liệu</label>
+                    <input type="text" id="lesson-link" placeholder="https://..." class="w-full border p-3 rounded-2xl bg-gray-50 mt-1 outline-none focus:border-blue-500">
+                </div>
+                <button id="btn-submit-lesson" onclick="submitLesson()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all mt-4 flex items-center justify-center gap-2">
+                    <i class="fas fa-plus"></i> XÁC NHẬN THÊM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL THÊM CHUYÊN ĐỀ -->
+    <div id="modal-add-topic" class="fixed inset-0 bg-black bg-opacity-50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-[30px] p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="text-xl font-bold text-blue-900">Thêm chuyên đề mới</h4>
+                <button onclick="closeTopicModal()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="space-y-4">
+                <input type="hidden" id="target-course-id-topic">
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase ml-2">Tên chuyên đề</label>
+                    <input type="text" id="topic-name-input" placeholder="Ví dụ: Chương 1 - Hàm số" class="w-full border p-3 rounded-2xl bg-gray-50 mt-1 outline-none focus:border-blue-500">
+                </div>
+                <button id="btn-submit-topic" onclick="submitTopic()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-bold hover:bg-green-700 transition-all mt-4 flex items-center justify-center gap-2">
+                    <i class="fas fa-folder-plus"></i> TẠO CHUYÊN ĐỀ
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // =============================================
         // 1. CẤU HÌNH SUPABASE
+        // =============================================
         const SUPABASE_URL = 'https://rznyagxrshwwocsvrabe.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_nIlU5_ViUwLqJr91B-bGDg_hFgRPuW5'; 
+        const SUPABASE_KEY = 'sb_publishable_nIlU5_ViUwLqJr91B-bGDg_hFgRPuW5';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 2. KIỂM TRA QUYỀN TRUY CẬP
-        window.onload = function() {
+        // =============================================
+        // 2. BẢO MẬT: KIỂM TRA ADMIN
+        // =============================================
+        window.onload = function () {
             const user = JSON.parse(localStorage.getItem('user'));
             if (!user || user.role !== 'admin') {
                 alert("Thầy chưa đăng nhập hoặc không có quyền Admin!");
@@ -278,7 +380,9 @@
             }
         }
 
-        // 3. ĐIỀU HƯỚNG GIAO DIỆN
+        // =============================================
+        // 3. GIAO DIỆN SIDEBAR
+        // =============================================
         function toggleSubmenu(id, element) {
             const menu = document.getElementById(id);
             const arrow = element.querySelector('.arrow-icon');
@@ -289,85 +393,137 @@
         function showContent(section, element) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
             const target = document.getElementById('content-' + section);
-            if(target) target.classList.remove('hidden');
+            if (target) target.classList.remove('hidden');
 
             const titles = {
-                'welcome': 'Trang Welcome', 'user-list': 'Danh sách người dùng',
-                'add-user': 'Thêm người dùng mới', 'assign-student': 'Gán học sinh vào khóa học',
-                'course-list': 'Danh sách khóa học', 'add-course': 'Thêm khóa học mới', 'exam': 'Thi Online'
+                'welcome': 'Trang Welcome',
+                'user-list': 'Danh sách người dùng',
+                'add-user': 'Thêm người dùng mới',
+                'assign-student': 'Gán học sinh vào khóa học',
+                'course-list': 'Danh sách khóa học',
+                'add-course': 'Thêm khóa học mới',
+                'exam': 'Thi Online',
+                'topic-management': 'Quản lý chuyên đề'
             };
             document.getElementById('page-title').innerText = titles[section] || 'Quản trị';
 
             document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active-menu'));
-            if(element && element.classList.contains('sidebar-item')) element.classList.add('active-menu');
+            if (element && element.classList && element.classList.contains('sidebar-item')) {
+                element.classList.add('active-menu');
+            }
 
             if (section === 'user-list') fetchUsers();
             if (section === 'course-list') fetchCourses();
             if (section === 'assign-student') prepareAssignData();
         }
 
-        // 4. LOGIC NGƯỜI DÙNG
+        // =============================================
+        // 4. DANH SÁCH NGƯỜI DÙNG
+        // =============================================
         async function fetchUsers() {
             const tbody = document.getElementById('user-table-body');
-            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center">Đang tải...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" class="p-10 text-center text-blue-900 font-bold"><i class="fas fa-spinner fa-spin mr-2"></i> Đang truy xuất Supabase...</td></tr>';
             try {
                 const { data, error } = await _supabase.from('accounts').select('*').order('created_at', { ascending: false });
                 if (error) throw error;
-                tbody.innerHTML = data.map(user => `
-                    <tr class="hover:bg-blue-50/50">
-                        <td class="p-5 font-black text-blue-900">${user.fullname}</td>
-                        <td class="p-5 text-sm"><b>${user.sdt || ''}</b><br><span class="text-gray-400">${user.email}</span></td>
-                        <td class="p-5 text-center"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${user.role==='admin'?'bg-red-100 text-red-600':'bg-blue-100 text-blue-600'}">${user.role}</span></td>
-                        <td class="p-5 text-center"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${user.status==='active'?'bg-green-100 text-green-700':'bg-gray-100'}">${user.status==='active'?'Đang học':'Khóa'}</span></td>
+                tbody.innerHTML = '';
+                data.forEach(user => {
+                    const statusClass = user.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500';
+                    const statusText = user.status === 'active' ? 'Đang học' : 'Đã khóa';
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-blue-50/50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-5 font-black text-blue-900">${user.fullname || 'Học sinh'}</td>
+                        <td class="p-5">
+                            <div class="text-sm font-bold text-gray-600">${user.sdt || '---'}</div>
+                            <div class="text-[11px] text-gray-400 font-medium">${user.email || 'no-email'}</div>
+                        </td>
+                        <td class="p-5 text-center">
+                            <span class="px-3 py-1 rounded-lg text-[10px] font-black uppercase ${user.role === 'admin' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}">
+                                ${user.role}
+                            </span>
+                        </td>
+                        <td class="p-5 text-center">
+                            <span class="px-3 py-1 rounded-lg text-[10px] font-black uppercase ${statusClass}">${statusText}</span>
+                        </td>
                         <td class="p-5 text-center">
                             <div class="flex justify-center gap-2">
-                                <button onclick="toggleUserStatus('${user.id}', '${user.status}')" class="w-8 h-8 rounded bg-orange-100 text-orange-600 hover:bg-orange-600 hover:text-white"><i class="fas fa-power-off text-xs"></i></button>
-                                <button onclick="deleteUser('${user.id}')" class="w-8 h-8 rounded bg-red-100 text-red-600 hover:bg-red-600 hover:text-white"><i class="fas fa-trash text-xs"></i></button>
+                                <button onclick="editUser('${user.id}')" class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                                    <i class="fas fa-edit text-xs"></i>
+                                </button>
+                                <button onclick="toggleUserStatus('${user.id}', '${user.status}')" class="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 hover:bg-orange-600 hover:text-white transition-all">
+                                    <i class="fas fa-power-off text-xs"></i>
+                                </button>
+                                <button onclick="deleteUser('${user.id}')" class="w-8 h-8 rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
                             </div>
-                        </td>
-                    </tr>
-                `).join('');
-            } catch (err) { tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500">${err.message}</td></tr>`; }
-        }
-
-        document.getElementById('form-add-new-user').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('btn-submit-user');
-            const data = {
-                fullname: document.getElementById('add-fullname').value,
-                email: document.getElementById('add-email').value,
-                password: document.getElementById('add-password').value,
-                sdt: document.getElementById('add-sdt').value,
-                role: document.getElementById('add-role').value,
-                status: 'active'
-            };
-            btn.disabled = true;
-            try {
-                const { error } = await _supabase.from('accounts').insert([data]);
-                if (error) throw error;
-                alert("Đã thêm thành công!");
-                showContent('user-list');
-            } catch (err) { alert("Lỗi: " + err.message); }
-            finally { btn.disabled = false; }
-        });
-
-        async function toggleUserStatus(id, current) {
-            const next = current === 'active' ? 'inactive' : 'active';
-            await _supabase.from('accounts').update({ status: next }).eq('id', id);
-            fetchUsers();
-        }
-
-        async function deleteUser(id) {
-            if (confirm("Xóa vĩnh viễn?")) {
-                await _supabase.from('accounts').delete().eq('id', id);
-                fetchUsers();
+                        </td>`;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold">Lỗi: ${err.message}</td></tr>`;
             }
         }
 
-        // 5. LOGIC GÁN HỌC SINH
+        // =============================================
+        // 5. THÊM NGƯỜI DÙNG MỚI
+        // =============================================
+        document.getElementById('form-add-new-user').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-user');
+            const fullname = document.getElementById('add-fullname').value;
+            const email = document.getElementById('add-email').value;
+            const password = document.getElementById('add-password').value;
+            const sdt = document.getElementById('add-sdt').value;
+            const link_fb = document.getElementById('add-fb').value;
+            const role = document.getElementById('add-role').value;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+            try {
+                const { error } = await _supabase.from('accounts').insert([{ fullname, email, password, sdt, link_fb, role, status: 'active' }]);
+                if (error) throw error;
+                alert("Chúc mừng thầy! Đã thêm thành công: " + fullname);
+                document.getElementById('form-add-new-user').reset();
+                showContent('user-list');
+            } catch (err) {
+                alert("Lỗi: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> LƯU THÀNH VIÊN';
+            }
+        });
+
+        // =============================================
+        // 6. THAO TÁC NGƯỜI DÙNG
+        // =============================================
+        async function toggleUserStatus(id, current) {
+            const next = current === 'active' ? 'inactive' : 'active';
+            const { error } = await _supabase.from('accounts').update({ status: next }).eq('id', id);
+            if (error) alert("Lỗi: " + error.message);
+            else fetchUsers();
+        }
+
+        async function deleteUser(id) {
+            if (confirm("Thầy có chắc muốn xóa vĩnh viễn học sinh này?")) {
+                const { error } = await _supabase.from('accounts').delete().eq('id', id);
+                if (error) alert("Lỗi xóa: " + error.message);
+                else fetchUsers();
+            }
+        }
+
+        function editUser(id) {
+            alert("Tính năng chỉnh sửa học sinh (ID: " + id + ") đang được phát triển ạ!");
+        }
+
+        // =============================================
+        // 7. GÁN HỌC SINH VÀO KHÓA HỌC
+        // =============================================
         async function prepareAssignData() {
             const uSelect = document.getElementById('assign-user-id');
             const cSelect = document.getElementById('assign-course-id');
+            uSelect.innerHTML = '<option>Đang tải...</option>';
+            cSelect.innerHTML = '<option>Đang tải...</option>';
             try {
                 const [users, courses] = await Promise.all([
                     _supabase.from('accounts').select('id, fullname, email').eq('role', 'student').order('fullname'),
@@ -375,67 +531,300 @@
                 ]);
                 uSelect.innerHTML = users.data.map(u => `<option value="${u.id}">${u.fullname} (${u.email})</option>`).join('');
                 cSelect.innerHTML = courses.data.map(c => `<option value="${c.id}">${c.course_name}</option>`).join('');
-            } catch (err) { alert("Lỗi tải data!"); }
+            } catch (err) {
+                alert("Lỗi tải data gán: " + err.message);
+            }
         }
 
         document.getElementById('form-assign-student').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-assign');
-            const data = {
-                user_id: document.getElementById('assign-user-id').value,
-                course_id: document.getElementById('assign-course-id').value
-            };
+            const uId = document.getElementById('assign-user-id').value;
+            const cId = document.getElementById('assign-course-id').value;
             btn.disabled = true;
             try {
-                const { error } = await _supabase.from('course_enrollments').insert([data]);
-                if (error) throw (error.code === '23505' ? new Error("Học sinh này đã có trong khóa học rồi!") : error);
-                alert("Gán thành công!");
-            } catch (err) { alert(err.message); }
-            finally { btn.disabled = false; }
+                const { error } = await _supabase.from('course_enrollments').insert([{ user_id: uId, course_id: cId }]);
+                if (error) throw error;
+                alert("Gán học sinh thành công!");
+            } catch (err) {
+                alert("Lỗi: " + (err.code === '23505' ? "Đã gán rồi!" : err.message));
+            } finally {
+                btn.disabled = false;
+            }
         });
 
-        // 6. LOGIC KHÓA HỌC
+        // =============================================
+        // 8. THÊM KHÓA HỌC MỚI
+        // =============================================
         function previewThumb() {
             const url = document.getElementById('course_thumbnail').value;
-            const preview = document.getElementById('thumb-preview');
-            if(url) { preview.querySelector('img').src = url; preview.classList.remove('hidden'); }
+            const previewDiv = document.getElementById('thumb-preview');
+            if (url) {
+                previewDiv.querySelector('img').src = url;
+                previewDiv.classList.remove('hidden');
+            }
         }
 
         async function saveCourse() {
-            const name = document.getElementById('course_name').value;
-            if(!name) return alert("Thầy nhập tên khóa học!");
             const btn = document.getElementById('btn-save-course');
+            const name = document.getElementById('course_name').value;
+            const desc = document.getElementById('course_description').value;
+            const thumb = document.getElementById('course_thumbnail').value;
+            if (!name) return alert("Thầy điền tên khóa học nhé!");
             btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang khởi tạo...';
             try {
-                const { error } = await _supabase.from('courses').insert([{
-                    course_name: name,
-                    description: document.getElementById('course_description').value,
-                    thumbnail_url: document.getElementById('course_thumbnail').value
-                }]);
+                const { error } = await _supabase.from('courses').insert([{ course_name: name, description: desc, thumbnail_url: thumb }]);
                 if (error) throw error;
-                alert("Đã tạo khóa học!");
+                alert("Đã tạo khóa học thành công!");
                 showContent('course-list');
-            } catch (err) { alert(err.message); }
-            finally { btn.disabled = false; }
+            } catch (error) {
+                alert("Lỗi: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-rocket"></i> Xác nhận khởi tạo khóa học';
+            }
         }
 
+        // =============================================
+        // 9. DANH SÁCH KHÓA HỌC
+        // =============================================
         async function fetchCourses() {
             const grid = document.getElementById('course-grid');
-            grid.innerHTML = '<div class="col-span-full text-center">Đang tải...</div>';
+            grid.innerHTML = '<div class="col-span-full text-center py-10 text-blue-900 font-bold"><i class="fas fa-spinner fa-spin mr-2"></i> Đang lấy dữ liệu khóa học...</div>';
             try {
                 const { data, error } = await _supabase.from('courses').select('*').order('created_at', { ascending: false });
                 if (error) throw error;
-                grid.innerHTML = data.map(c => `
-                    <div class="bg-white rounded-[30px] overflow-hidden shadow-sm border border-gray-100 course-card">
-                        <img src="${c.thumbnail_url || 'https://via.placeholder.com/400x200'}" class="w-full h-40 object-cover">
-                        <div class="p-6">
-                            <h4 class="font-black text-blue-900 leading-tight mb-2">${c.course_name}</h4>
-                            <p class="text-gray-500 text-xs line-clamp-2 mb-4">${c.description || 'Không có mô tả'}</p>
-                            <button onclick="alert('ID khóa học: ${c.id}')" class="w-full py-2 bg-gray-50 text-blue-600 rounded-xl font-bold text-xs hover:bg-blue-600 hover:text-white transition-all">CHI TIẾT KHÓA HỌC</button>
+                if (data.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full bg-white p-10 rounded-3xl text-center border">Chưa có khóa học nào.</div>';
+                    return;
+                }
+                grid.innerHTML = '';
+                data.forEach(course => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-[30px] overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all group";
+                    card.innerHTML = `
+                        <div class="relative h-40 overflow-hidden">
+                            <img src="${course.thumbnail_url || 'https://via.placeholder.com/400x200?text=No+Image'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-                    </div>
-                `).join('');
-            } catch (err) { grid.innerHTML = `<div class="col-span-full text-red-500 text-center">${err.message}</div>`; }
+                        <div class="p-6">
+                            <h4 class="text-lg font-black text-blue-900 mb-2 line-clamp-1">${course.course_name}</h4>
+                            <p class="text-gray-500 text-sm line-clamp-2 mb-4 h-10 font-medium">${course.description || 'Chưa có mô tả.'}</p>
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                                <div class="flex gap-2">
+                                    <button onclick="editCourse('${course.id}')" class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all"><i class="fas fa-edit text-sm"></i></button>
+                                    <button onclick="deleteCourse('${course.id}')" class="w-10 h-10 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all"><i class="fas fa-trash text-sm"></i></button>
+                                </div>
+                                <button onclick="openCourseDetail('${course.id}', \`${course.course_name}\`)" class="bg-blue-900 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-orange-500 transition-colors">
+                                    QUẢN TRỊ <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>`;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                grid.innerHTML = `<div class="col-span-full text-red-500 text-center p-10">Lỗi: ${err.message}</div>`;
+            }
+        }
+
+        async function deleteCourse(id) {
+            if (confirm("Xóa khóa học này có thể mất dữ liệu liên quan. Thầy chắc chứ?")) {
+                const { error } = await _supabase.from('courses').delete().eq('id', id);
+                if (error) alert("Lỗi: " + error.message);
+                else fetchCourses();
+            }
+        }
+
+        function editCourse(id) {
+            alert("Đang phát triển tính năng sửa khóa học " + id);
+        }
+
+        // =============================================
+        // 10. MỞ TRANG CHUYÊN ĐỀ CỦA 1 KHÓA HỌC
+        // =============================================
+        function openCourseDetail(courseId, courseName) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('content-topic-management').classList.remove('hidden');
+            document.getElementById('current-course-name').innerText = courseName;
+            document.getElementById('page-title').innerText = courseName;
+            // Lưu courseId lên container để dùng lại
+            document.getElementById('topic-container').dataset.courseId = courseId;
+            fetchTopics(courseId);
+        }
+
+        // =============================================
+        // 11. LẤY DANH SÁCH CHUYÊN ĐỀ TỪ SUPABASE
+        // =============================================
+        async function fetchTopics(courseId) {
+            const container = document.getElementById('topic-container');
+            container.innerHTML = '<p class="text-center py-10 text-blue-900 font-bold"><i class="fas fa-spinner fa-spin mr-2"></i>Đang tải chuyên đề...</p>';
+
+            try {
+                const { data: topics, error } = await _supabase
+                    .from('topics')
+                    .select('id, topic_name')
+                    .eq('course_id', courseId)
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+
+                container.innerHTML = '';
+
+                // Nút thêm chuyên đề mới
+                const addBtn = document.createElement('button');
+                addBtn.className = "w-full bg-green-50 border-2 border-dashed border-green-300 text-green-700 py-4 rounded-2xl font-bold hover:bg-green-100 transition mb-2";
+                addBtn.innerHTML = '<i class="fas fa-folder-plus mr-2"></i> Thêm chuyên đề mới';
+                addBtn.onclick = () => openTopicModal(courseId);
+                container.appendChild(addBtn);
+
+                if (topics.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = "bg-white p-10 rounded-2xl border text-center text-gray-400 italic";
+                    empty.innerText = "Chưa có chuyên đề nào. Hãy thêm chuyên đề đầu tiên!";
+                    container.appendChild(empty);
+                    return;
+                }
+
+                for (const topic of topics) {
+                    // Lấy bài học của từng chuyên đề
+                    const { data: lessons } = await _supabase
+                        .from('lessons')
+                        .select('id, lesson_title, video_url')
+                        .eq('topic_id', topic.id)
+                        .order('created_at', { ascending: true });
+
+                    const lessonsHtml = (lessons && lessons.length > 0)
+                        ? lessons.map(l => `
+                            <div class="flex items-center gap-3 py-3 px-5 border-b border-gray-50 last:border-0 hover:bg-blue-50/30 transition group">
+                                <i class="fas fa-play-circle text-blue-400 text-sm flex-shrink-0"></i>
+                                <span class="text-sm text-gray-700 flex-1 font-medium">${l.lesson_title}</span>
+                                ${l.video_url ? `<a href="${l.video_url}" target="_blank" class="text-xs text-blue-500 hover:underline px-2 py-1 bg-blue-50 rounded-lg"><i class="fas fa-external-link-alt mr-1"></i>Xem</a>` : '<span class="text-xs text-gray-300">Chưa có link</span>'}
+                                <button onclick="deleteLesson('${l.id}', '${courseId}')" class="text-xs text-red-400 hover:text-red-600 w-7 h-7 rounded-lg hover:bg-red-50 transition opacity-0 group-hover:opacity-100">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>`).join('')
+                        : '<p class="text-xs text-gray-400 italic py-4 px-5">Chưa có bài học nào trong chuyên đề này.</p>';
+
+                    const topicDiv = document.createElement('div');
+                    topicDiv.className = "bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden";
+                    topicDiv.innerHTML = `
+                        <div class="flex justify-between items-center p-5 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-folder-open text-yellow-500"></i>
+                                </div>
+                                <span class="font-black text-gray-800">${topic.topic_name}</span>
+                                <span class="text-xs text-gray-400 font-medium">(${lessons ? lessons.length : 0} bài)</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="openLessonModal('${topic.id}', '${courseId}')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700 transition flex items-center gap-1">
+                                    <i class="fas fa-plus"></i> Thêm bài học
+                                </button>
+                                <button onclick="deleteTopic('${topic.id}', '${courseId}')" class="bg-red-50 text-red-500 w-9 h-9 rounded-xl text-sm hover:bg-red-100 transition">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>${lessonsHtml}</div>`;
+                    container.appendChild(topicDiv);
+                }
+
+            } catch (err) {
+                container.innerHTML = `<div class="text-red-500 p-6 text-center font-bold bg-red-50 rounded-2xl">Lỗi tải chuyên đề: ${err.message}</div>`;
+            }
+        }
+
+        // =============================================
+        // 12. MODAL CHUYÊN ĐỀ
+        // =============================================
+        function openTopicModal(courseId) {
+            document.getElementById('target-course-id-topic').value = courseId;
+            document.getElementById('topic-name-input').value = '';
+            document.getElementById('modal-add-topic').classList.remove('hidden');
+        }
+
+        function closeTopicModal() {
+            document.getElementById('modal-add-topic').classList.add('hidden');
+        }
+
+        async function submitTopic() {
+            const courseId = document.getElementById('target-course-id-topic').value;
+            const name = document.getElementById('topic-name-input').value.trim();
+            if (!name) return alert("Vui lòng nhập tên chuyên đề!");
+
+            const btn = document.getElementById('btn-submit-topic');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo...';
+
+            const { error } = await _supabase.from('topics').insert([{ course_id: courseId, topic_name: name }]);
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-folder-plus"></i> TẠO CHUYÊN ĐỀ';
+
+            if (error) return alert("Lỗi: " + error.message);
+            closeTopicModal();
+            fetchTopics(courseId);
+        }
+
+        // =============================================
+        // 13. MODAL BÀI HỌC
+        // =============================================
+        function openLessonModal(topicId, courseId) {
+            document.getElementById('target-topic-id').value = topicId;
+            document.getElementById('target-course-id').value = courseId;
+            document.getElementById('lesson-title').value = '';
+            document.getElementById('lesson-link').value = '';
+            document.getElementById('modal-add-lesson').classList.remove('hidden');
+        }
+
+        function closeLessonModal() {
+            document.getElementById('modal-add-lesson').classList.add('hidden');
+        }
+
+        async function submitLesson() {
+            const topicId = document.getElementById('target-topic-id').value;
+            const courseId = document.getElementById('target-course-id').value;
+            const title = document.getElementById('lesson-title').value.trim();
+            const link = document.getElementById('lesson-link').value.trim();
+
+            if (!title) return alert("Vui lòng nhập tên bài học!");
+
+            const btn = document.getElementById('btn-submit-lesson');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+
+            const { error } = await _supabase.from('lessons').insert([{
+                topic_id: topicId,
+                lesson_title: title,
+                video_url: link || null
+            }]);
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-plus"></i> XÁC NHẬN THÊM';
+
+            if (error) return alert("Lỗi: " + error.message);
+
+            closeLessonModal();
+            fetchTopics(courseId);
+        }
+
+        // =============================================
+        // 14. XÓA CHUYÊN ĐỀ & BÀI HỌC
+        // =============================================
+        async function deleteTopic(topicId, courseId) {
+            if (!confirm("Xóa chuyên đề này và toàn bộ bài học bên trong?")) return;
+            // Xóa bài học trước, rồi xóa chuyên đề
+            await _supabase.from('lessons').delete().eq('topic_id', topicId);
+            const { error } = await _supabase.from('topics').delete().eq('id', topicId);
+            if (error) return alert("Lỗi: " + error.message);
+            fetchTopics(courseId);
+        }
+
+        async function deleteLesson(lessonId, courseId) {
+            if (!confirm("Xóa bài học này?")) return;
+            const { error } = await _supabase.from('lessons').delete().eq('id', lessonId);
+            if (error) return alert("Lỗi: " + error.message);
+            fetchTopics(courseId);
         }
     </script>
 </body>
